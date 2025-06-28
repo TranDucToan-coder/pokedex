@@ -1,53 +1,96 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../Css/home.css"
+
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+import { getData } from "../API/api";
 
 const Home = () => {
     return (
-        <div id="content">
-            <div className="main-content">
-                <div className="post-1">
-                    <img className="img-main-post-1" src={`https://www.pokemon.com/static-assets/content-assets/cms2/img/video-games/_tiles/tcg-pocket/2025/05/22/pokemon-tcg-pocket-169-en.png`} loading="lazy"></img>
-                    <div className="title">
-                        <h3>Ultra Beasts Have Arrived in <em>Extradimensional Crisis</em></h3>
-                        <p>These bizarre beings have emerged from Ultra Space in Pokémon&nbsp;TCG Pocket’s newest expansion.</p>
+        <div>
+            <div id="content">
+                <div className="main-content">
+                    <div className="post-1">
+                        <img className="img-main-post-1" src={`https://www.pokemon.com/static-assets/content-assets/cms2/img/video-games/_tiles/tcg-pocket/2025/05/22/pokemon-tcg-pocket-169-en.png`} loading="lazy"></img>
+                        <div className="title">
+                            <h3>Ultra Beasts Have Arrived in <em>Extradimensional Crisis</em></h3>
+                            <p>These bizarre beings have emerged from Ultra Space in Pokémon&nbsp;TCG Pocket’s newest expansion.</p>
+                        </div>
+                    </div>
+                    <div className="below-main-content">
+                        <div className="post-2">
+                            <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/trading-card-game/_tiles/sv/sv10/preview-cards/sv10-preview-cards-3-169-en.png" loading="lazy"></img>
+                            <div className="title">
+                                <h4>Garchomp with the Mightiest Mark Is Coming</h4>
+                            </div>
+                        </div>
+                        <div className="post-3">
+                            <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/trading-card-game/_tiles/sv/sv10/preview-cards/sv10-preview-cards-3-169-en.png" loading="lazy"></img>
+                            <div className="title">
+                                <h4>Watch the Latest Pokémon Presents on July 22, 2025</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div className="below-main-content">
-                    <div className="post-2">
+                <div className="sub-content">
+                    <div className="post-1">
                         <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/trading-card-game/_tiles/sv/sv10/preview-cards/sv10-preview-cards-3-169-en.png" loading="lazy"></img>
                         <div className="title">
-                            <h4>Garchomp with the Mightiest Mark Is Coming</h4>
+                            <h4>Preview Five Team Rocket’s Cards from Pokémon TCG: Scarlet & Violet—Destined Rivals</h4>
+                        </div>
+                    </div>
+                    <div className="post-2">
+                        <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/misc/_tiles/pokemon-center/2025/05/28/pokemon-center-169.png" loading="lazy"></img>
+                        <div className="title">
+                            <h4>Join the Mega Celebration at Pokémon Center</h4>
                         </div>
                     </div>
                     <div className="post-3">
-                        <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/trading-card-game/_tiles/sv/sv10/preview-cards/sv10-preview-cards-3-169-en.png" loading="lazy"></img>
+                        <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/video-games/_tiles/pokemon-legends-z-a/2025/05/28/pokemon-legends-z-a-34-en.png" alt="none" loading="lazy" />
                         <div className="title">
-                            <h4>Watch the Latest Pokémon Presents on July 22, 2025</h4>
+                            <h4>POKEMON Legends: <em>Z-A</em> Updates</h4>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="sub-content">
-                <div className="post-1">
-                    <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/trading-card-game/_tiles/sv/sv10/preview-cards/sv10-preview-cards-3-169-en.png" loading="lazy"></img>
-                    <div className="title">
-                        <h4>Preview Five Team Rocket’s Cards from Pokémon TCG: Scarlet & Violet—Destined Rivals</h4>
-                    </div>
-                </div>
-                <div className="post-2">
-                    <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/misc/_tiles/pokemon-center/2025/05/28/pokemon-center-169.png" loading="lazy"></img>
-                    <div className="title">
-                        <h4>Join the Mega Celebration at Pokémon Center</h4>
-                    </div>
-                </div>
-                <div className="post-3">
-                    <img src="https://www.pokemon.com/static-assets/content-assets/cms2/img/video-games/_tiles/pokemon-legends-z-a/2025/05/28/pokemon-legends-z-a-34-en.png" alt="none" loading="lazy" />
-                    <div className="title">
-                        <h4>POKEMON Legends: <em>Z-A</em> Updates</h4>
-                    </div>
-                </div>
-            </div>
+            <Feature />
         </div>
+    )
+}
+const Feature = () => {
+    const [data, setData] = useState([]);
+    const setting = {
+        dots: false,
+        arrows: true,
+        infinite: true,
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 5000,
+    };
+    const FetchData = async () => {
+        const results = await getData();
+        setData(results)
+    }
+    useEffect(() => {
+        FetchData();
+    }, [])
+    return (
+        <Slider {...setting} id="slider">
+            {data.length > 0 ? (
+                data.map((item, index) => (
+                    <div key={index} id="slick-item">
+                        <img src={item.image} alt="none" loading="lazy"></img>
+                        <p className="title">{item.name}</p>
+                        <p className="id">{item.id}</p>
+                    </div>
+                ))
+            ) : (
+                <div>Danh sách rỗng</div>
+            )}
+        </Slider>
     )
 }
 export default Home

@@ -1,0 +1,39 @@
+@media screen and (max-width: 768px) {
+    .wrapper{
+        width: 100% !important;
+        transition: all 0.3s ease-in-out;
+    }
+    .image{
+        width: 50% !important;
+    }
+}
+.wrapper{
+    width: 50%;
+    min-height: 120vh;
+    height: auto;
+    background-color: white;
+    color: black;
+    margin: 0 auto;
+}
+.content{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 0 auto;
+    padding: 3vh;
+}
+.item{
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 5vh;
+}
+.image{
+    width: 100%;
+}
+.title{
+    width: auto;
+}

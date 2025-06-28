@@ -3,13 +3,25 @@
   padding: 0;
   margin: 0;
   overflow-x: hidden;
+  text-decoration: none;
+}
+a{
+  color: black;
 }
 .App-body{
     background-image: url('../public/svgMenu/bg.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
-    min-height: 90vh;
+    min-height: 150vh;
     height: auto;
+}
+.dark {
+  color: white;
+  background-color: black;
+}
+.light{
+  color: black;
+  background-color: white;
 }
 @media only screen and (max-width: 768px) {
     .App-body{

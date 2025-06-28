@@ -1,0 +1,112 @@
+.overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+}
+#wrapper{
+    position: fixed;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+
+    width: 25vw;
+    min-height: 30vh;
+    height: auto;
+    background-color: rgba(0,0,0,0.35);
+    color: white;
+    font-size: 1.1rem;
+    margin: 0 auto;
+    border-radius: 20px;
+    padding: 2%;
+    line-height: 5vh;
+}
+#wrapper .close{
+    display: flex;
+    justify-content: end;
+    margin-bottom: 1vh;
+    cursor: pointer;
+}
+#wrapper .topPart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    height: auto;
+}
+#wrapper .topPart p {
+    min-width: 6vw;
+    width: auto;
+}
+#wrapper .topPart input {
+    min-width: 15vw;
+    width: 100%;
+    height: 3vh;
+    padding: 2%;
+    outline: none;
+    border-radius: 10px;
+    border: none;
+    font-size: 1.1rem;
+    transition: all ease-in 0.4s;
+}
+#wrapper .middlePart {
+    display: flex;
+    justify-content: end;
+}
+#wrapper .middlePart p {
+    cursor: pointer;
+}
+#wrapper .bottomPart {
+    display: flex;
+    flex-direction: column;
+    line-height: 10vh;
+    justify-content: center;
+}
+#wrapper .bottomPart button {
+    width: 50%;
+    height: 4vh;
+    border-radius: 20px;
+    margin: 0 auto;
+    outline: none;
+    border: none;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.1rem; 
+    transition: all ease-in 0.4s;   
+}
+#wrapper .bottomPart p {
+    font-size: 1.1rem;
+    width: auto;
+    margin: 0 auto;
+    cursor: pointer;
+}
+#wrapper .bottomPart button:hover{
+    background: linear-gradient(to right, red, yellow);
+}
+
+#wrapper .topPart input:focus {
+    border: 1px solid rgba(255, 0, 0, 0.589);
+}
+@media screen and (max-width: 768px) {
+    #wrapper {
+        transition: all 0.3s ease-in-out;
+        font-size: 0.5rem;
+    }
+    #wrapper .topPart input {
+        font-size: 0.5rem;
+    }
+    #wrapper .bottomPart button{
+        font-size: 0.5rem;
+        height: 3vh;
+    }
+    #wrapper .bottomPart p {
+        font-size: 0.5rem;
+    }
+}

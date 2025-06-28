@@ -1,0 +1,132 @@
+@media screen and (max-width: 768px) {
+    #wrapper{
+        width: 100% !important;
+    }
+    .name{
+        font-size: 5vw !important;
+    }
+}
+#wrapper{
+    width: 50%;
+    min-height: 120vh;
+    height: auto;
+    background-color: white;
+    color: black;
+    margin: 0 auto;
+    font-size: 1vw;
+}
+#wrapper .title{
+    font-size: 2vh;
+    padding: 20px;
+}
+#wrapper .searchBox{
+    width: auto;
+    height: 21vh;
+    background-color: rgba(0,0,0, 0.85);
+}
+#wrapper .advancedFilter{
+    width: auto;
+    height: 6vh;
+    background-color: rgba(0,0,0, 0.65);
+    overflow: visible;
+
+    position: relative;
+    transition: all ease-in 0.5s;
+    cursor: pointer;
+}
+.expanded {
+    height: 20vh;
+}
+
+#wrapper .advancedFilter::after{
+    display: block;
+    content: "Show Advanced Search";
+
+    margin: 6vh auto;
+    font-size: 120%;
+    width: 40%;
+    min-height: 40%;
+    height: auto;
+
+    position: absolute;
+    inset: 0; 
+    background-color: rgba(0,0,0, 0.65);
+
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px; 
+
+    text-align: center;
+    line-height: 10px;
+    color: white;
+}
+/*Sort*/
+.option{
+    width: 80%;
+    height: auto;
+    min-height: 10vh;
+    display: flex;
+    margin: 5vh auto;
+    justify-content: space-between;
+    font-family: "Flexo-Demi", arial, sans-serif;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.option .BtnRandom{
+    width: 40%;
+    height: 5vh;
+    font-size: 100%;
+    font-weight: 900;
+    color: white;
+    background-color: rgb(54, 146, 189);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.option .sort{
+    display: flex;
+    width: 40vh;
+    align-items: center;
+
+}
+.option .sort .listOption{
+    width: 62%;
+    height: 5vh;
+    outline: none;
+    font-size: 120%;
+    background-color: rgba(0, 0, 0, 0.829);
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+}
+/*ListPokemon*/
+.listItem{
+    width: 80%;
+    height: auto;
+    margin: 5vh auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.listItem #item{
+    width: 20vh;
+    height: 28vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.listItem img{
+    width: 80%;
+    object-fit: contain;
+    margin: 0 auto;
+    filter: drop-shadow(4px 4px 10px rgba(182, 46, 46, 0.75));
+}
+.listItem .title{
+    font-family: "Flexo-Demi", arial, sans-serif;
+}
+.listItem .title .id{
+    color: gray;
+}
+.name{
+    font-size: 1.2vw;
+}
