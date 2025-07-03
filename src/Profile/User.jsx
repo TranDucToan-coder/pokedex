@@ -32,9 +32,6 @@ const User = () => {
                         <History/>
                     )}
                 </div>
-                <div className={style.contant_middle}>
-
-                </div>
             </div>
             
         </div>

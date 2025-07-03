@@ -14,11 +14,36 @@ const TCG = () => {
         const response = await GetDataTCG();
         setData(response);
     }
+    const FilterResult = (type) => {
+        if (!type) {
+            setData(data);
+        } else {
+            const results = data.filter(el => el.types.map(t => t.toLowerCase()).includes(type.toLowerCase()));
+            console.log(results)
+            setData(results);
+        }
+        setPage(1); // reset về trang đầu khi filter
+    };
     useEffect(() => {
         getData();
     }, [])
     return (
         <div className={style.wrapper}>
+            <div className={style.advancedFilter}>
+                <select onChange={(e) => FilterResult(e.target.value)}>
+                    <option value="fire">Fire</option>
+                    <option value="dark">Ice</option>
+                    <option value="earth"></option>
+                    <option value="lightning"></option>
+                    <option value="fighting"></option>
+                    <option value="grass"></option>
+                    <option value="colorless"></option>
+                    <option value="poison"></option>
+                    <option value="psycho"></option>
+                    <option value="metal"></option>
+                    <option value="water"></option>
+                </select>
+            </div>
             <div className={style.content}>
                 {data.length > 1 ? (
                     paginated.map((item, index) => (

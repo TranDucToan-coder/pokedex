@@ -8,7 +8,8 @@ export const LoginProvider = ({ children }) => {
         username: "",
         password: "",
         ID: "",
-        email: ""
+        email: "",
+        token: ""
     });
     const { error, setError } = useContext(ErrContext);
     const { HandleChangeOTP, HandleChangeState } = useContext(StateContext)
@@ -20,12 +21,12 @@ export const LoginProvider = ({ children }) => {
         }
         try {
             const serverUser = await GetUser(user.username, user.password);
-            setUser(serverUser)
-            console.log(user)
             if (!serverUser) {
                 setError("Sai tài khoản hoặc mật khẩu!");
             } else {
                 console.log("✅ Đăng nhập thành công, yêu cầu OTP...");
+                console.log(user)
+                setUser(serverUser)
                 HandleChangeState();
                 HandleChangeOTP();
             }

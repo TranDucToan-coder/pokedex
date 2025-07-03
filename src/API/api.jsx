@@ -82,6 +82,17 @@ export async function GetUser(username, password) {
             username, password
         })
         if (response) {
+            return response.data;
+        }
+    } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu:", error);
+        return null;
+    }
+}
+export async function GetDetailUser(id) { 
+    try {
+        const response = await axios.get(`http://localhost:5000/login/${id}`)
+        if (response) {
             return response.data[0];
         }
     } catch (error) {

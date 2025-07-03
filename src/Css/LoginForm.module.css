@@ -1,3 +1,26 @@
+@media screen and (max-width: 768px) {
+    #wrapper {
+        transition: all 0.3s ease-in-out;
+        font-size: 0.5rem !important;
+        width: 60vw !important;
+    }
+    #wrapper .topPart input {
+        font-size: 0.5rem !important;
+    }
+    #wrapper .bottomPart button{
+        font-size: 0.5rem !important;
+        height: 3vh;
+    }
+    #wrapper .bottomPart p {
+        font-size: 0.5rem !important;
+    }
+    #wrapper button{
+        width: 100% !important;
+    }
+    .close{
+        margin-bottom: 0.1vh !important;
+    }
+}
 .overlay{
     position: fixed;
     top: 0;
@@ -93,20 +116,4 @@
 
 #wrapper .topPart input:focus {
     border: 1px solid rgba(255, 0, 0, 0.589);
-}
-@media screen and (max-width: 768px) {
-    #wrapper {
-        transition: all 0.3s ease-in-out;
-        font-size: 0.5rem;
-    }
-    #wrapper .topPart input {
-        font-size: 0.5rem;
-    }
-    #wrapper .bottomPart button{
-        font-size: 0.5rem;
-        height: 3vh;
-    }
-    #wrapper .bottomPart p {
-        font-size: 0.5rem;
-    }
 }

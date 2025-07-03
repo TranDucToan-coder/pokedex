@@ -1,0 +1,23 @@
+@media screen and (max-width: 768px) {
+    .input input{
+        width: 50vw !important;
+        font-size: 2vw !important;
+    }
+    .information_wrapper{
+        width: 100% !important;
+    }
+}
+.input{
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+.input p{
+    margin-right: 1vw;
+}
+.input input{
+    width: 20vw;
+    height: 3vh;
+    padding-left: 0.8vw;
+}
