@@ -17,8 +17,13 @@ const pool = mysql2.createPool({
 const LoginController = {
     viewUser: async (req, res) => {
         try {
-            const query = "SELECT * FROM User";
-            const [rows] = await pool.query(query);
+            const { id } = req.params;
+            const query = `SELECT user.ID, username, password, email, fullname, addrerss, phone 
+            FROM User 
+            JOIN userprofile 
+            ON user.ID = userprofile.ID 
+            WHERE user.ID = ?`;
+            const [rows] = await pool.query(query, [id]);
             if (rows) {
                 res.status(200).json(rows);
             }
@@ -37,7 +42,8 @@ const LoginController = {
             const user = result[0];
             const payload = {
                 username: user?.username,
-                email: user?.email
+                email: user?.email,
+                role : user?.idRole
             };
             if (!user) {
                 return res.status(401).json({ message: "Tài khoản không tồn tại" });
@@ -50,7 +56,8 @@ const LoginController = {
             return res.status(200).json({
                 message: 'Đăng nhập thành công',
                 token,
-                user : user
+                idRole: user.idRole,
+                user
             });
         } catch (error) {
             res.status(500).json(`Server err: ${error}`)
@@ -58,15 +65,21 @@ const LoginController = {
     },
     addUser: async (req, res) => {
         try {
+            const user = req.user;
             const { username, password, email, idRole } = req.body;
             const query = "insert into User(username, password, email, idRole) values(?,?,?,?)";
-            const hashPass = await bcrypt.hash(password, 10);
-            const [result] = await pool.query(query, [username, hashPass, email, idRole]);
-            if (result) {
-                return res.status(200).json({ result, ID: result.insertId });
-            }
-            else {
-                return res.status(401).json("Database err")
+            if (user && user.role === 3) {
+                const hashPass = await bcrypt.hash(password, 10);
+                const [result] = await pool.query(query, [username, hashPass, email, idRole]);
+                if (result) {
+                    const queryDetail = "INSERT INTO userprofile(ID, fullname, addrerss, phone) VALUES (?, 'X', 'X', '0000000000')"
+                    await pool.query(queryDetail, [result.insertId]);
+                    return res.status(200).json({ result, ID: result.insertId });
+                } else {
+                    return res.status(401).json("Database err");
+                }
+            } else {
+                return res.status(400).json({ message: "Không đủ quyền hạn truy cập" });
             }
         } catch (error) {
             return res.status(500).json(`Server err: ${error}`)
@@ -75,7 +88,7 @@ const LoginController = {
     updateUser: async (req, res) => {
         try {
             const { id } = req.params;
-            const {fullname, addrerss, phone} = req.body;
+            const { fullname, addrerss, phone } = req.body;
             const query = "UPDATE userprofile SET fullname = ? , addrerss = ?, phone = ? WHERE ID = ?";
             const [result] = await pool.query(query, [fullname, addrerss, phone, id]);
             console.log(id, fullname, addrerss, phone)
@@ -89,14 +102,14 @@ const LoginController = {
             res.status(500).json(`Server err: ${error}`)
         }
     },
-    updatePassword: async(req, res) => {
+    updatePassword: async (req, res) => {
         try {
             const { id } = req.params;
             const { password } = req.body;
             const query = `UPDATE user SET password = ? WHERE ID = ?`;
             const [result] = pool.query(query, [password, id]);
             if (result) {
-                res.status(200).json({message : "Update thành công password", result});
+                res.status(200).json({ message: "Update thành công password", result });
             }
             else {
                 res.status(401).json("Database err")

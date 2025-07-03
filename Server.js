@@ -9,6 +9,7 @@ const cor = require('cors');
 const port = 5000;
 const LoginRoutes = require('./Routes/LoginRoutes')
 const CartRoutes = require('./Routes/CartRoutes')
+const OrderRoutes = require('./Routes/OrderRoutes');
 
 const app = express();
 app.use(cor());
@@ -40,6 +41,7 @@ app.get('/', (req, res) => {
 
 app.use("/login", LoginRoutes);
 app.use("/cart", CartRoutes);
+app.use("/order", OrderRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
