@@ -5,7 +5,7 @@ const nodemailer = require('nodemailer');
 const redis = require('redis')
 
 const redisClient = redis.createClient({
-    url: `redis://default:EdlWGExyWPSkpCMaLIdjE96ClFeGB7Dq@redis-18454.c11.us-east-1-3.ec2.redns.redis-cloud.com:18454`
+    url: `redis://default:${process.env.PASS_REDIS}@redis-18454.c11.us-east-1-3.ec2.redns.redis-cloud.com:18454`
 });
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -16,7 +16,6 @@ const transporter = nodemailer.createTransport({
 });
 const SendOTP = {
     CreateOTP: async (req, res) => {
-        console.log(process.env.PASS_APP)
         const { email } = req.body;
         if (!email) {
             return res.status(400).json({ message: "Email is required" });
@@ -27,8 +26,8 @@ const SendOTP = {
             await SendOTP.SendOTPtoAuth(email.trim(), otp);
             if (!redisClient.isOpen) {
                 await redisClient.connect();
-                await redisClient.set(`otp_${otp}`, otp, { EX: 300 });
             }
+            await redisClient.set(`otp_${otp}`, otp, { EX: 300 });
             res.status(200).json({
                 message: "OTP sent",
                 otp
@@ -50,6 +49,7 @@ const SendOTP = {
     },
     VerifyOTP: async (req, res) => {
     const { otp } = req.body;
+    console.log(req.body)
     if (!otp) {
         return res.status(400).json({ message: "OTP is required" });
     }
@@ -59,7 +59,8 @@ const SendOTP = {
         }
         const storedOtp = await redisClient.get(`otp_${otp}`);
         if (storedOtp && storedOtp === otp) {
-            await redisClient.del(`otp_${otp}`);
+            //await redisClient.del(`otp_${otp}`);
+            console.log(typeof(storedOtp))
             return res.status(200).json({ message: "OTP verified" });
         } else {
             return res.status(400).json({ message: "OTP is invalid or expired" });
