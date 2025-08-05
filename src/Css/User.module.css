@@ -1,12 +1,16 @@
 @media screen and (max-width: 768px) {
     .wrapper{
         width: 100% !important;
+        height: auto !important;
         transition: all 0.3s ease-in-out;
         font-size: 2vw;
+        flex-wrap: wrap;
     }
     .user_sidebar{
-        width: 25vw !important;
+        width: 100% !important;
         height: 12vh !important;
+        flex-direction: row !important;
+        align-items: center;
     }
     .user_sidebar button{
         width: 20vw !important;
@@ -16,13 +20,21 @@
         width: 100% !important;
     }
     .left{
-        width: 40% !important;
+        width: 100% !important;
+        height: auto !important;
+        align-items: center;
+    }
+    .user_content{
+        width: 100% !important;
+        justify-content: center;
+    }
+    .user_sidebar{
+
     }
 }
 .wrapper{
     width: 50%;
-    min-height: 120vh;
-    height: auto;
+    height: 120vh;
     background-color: white;
     margin: 0 auto;
     display: flex;
@@ -34,6 +46,7 @@
 
     display: flex;
     flex-direction: column;
+    justify-content: center;
     border-radius: 5px;
     border: none;
     cursor: pointer;
@@ -42,6 +55,7 @@
 .user_sidebar li{
     padding: 1vw;
     transition: all ease-in 2s;
+    height: auto;
 }
 .user_sidebar li:nth-child(3){
     display: flex;
@@ -71,5 +85,9 @@
     display: flex;
 }
 .right{
+    width: 80%;
     padding: 2vw;
+}
+.left{
+    width: auto;
 }

@@ -14,15 +14,3 @@ const addItemToCart = (item) => {
   }
 };
 export default addItemToCart
-//const removeItemFromCart = (item) => {
-//    const currentCart = JSON.parse(localStorage.getItem("cartKey") || "[]");
-//    const existProduct = currentCart.filter((cartItems) => cartItems.product_id !== item.product_id)
-//    if(existProduct)
-//    {
-//      return localStorage.setItem("cartKey", JSON.stringify(existProduct));
-//    }
-//    else
-//    {
-//      return currentCart;
-//    }
-//}

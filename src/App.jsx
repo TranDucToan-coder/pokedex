@@ -6,7 +6,8 @@ import DetailOfPokemon from './pages/DetailPokemon/Detail';
 import TCG from './pages/TCG/TCG';
 import Pokedex from './pages/Pokedex';
 import SideBar from './Navigate/Side';
-import Middleware from './Middleware/Middleware';
+import Middleware from './Middleware/MiddlewareUser';
+import MiddlewareAdmin from './Middleware/MiddlewareAdmin';
 import User from './Profile/User';
 import AdminPage from './Admin/AdminPage';
 //Context
@@ -35,11 +36,14 @@ function App() {
                 <Route path='/TCG' element={<TCG></TCG>}></Route>
                 <Route path='/TCG/:id' element={<DetailTCG></DetailTCG>}></Route>
                 <Route path='/cart' element={<Cart></Cart>}></Route>
-                <Route element={<Middleware></Middleware>}>
+                <Route element={<Middleware/>}>
                   <Route path='/profile/*' element={<User/>}></Route>
                   <Route path='/profile/information' element={<Information/>}></Route>
-                  <Route path='/admin' element={<AdminPage/>}></Route>
                 </Route>
+                <Route element={<MiddlewareAdmin/>}>
+                  <Route path='/admin/*' element={<AdminPage/>}></Route>
+                </Route>
+                
               </Routes>
             </div>
             <SideBar></SideBar>

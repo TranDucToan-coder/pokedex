@@ -1,15 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { GetUser } from "../API/api";
+import { GetUser, GetOTP } from "../API/api";
+
 
 export const LoginContext = createContext();
 export const LoginProvider = ({ children }) => {
     const [user, setUser] = useState({
         username: "",
         password: "",
-        ID: "",
-        email: "",
-        token: ""
     });
     const { error, setError } = useContext(ErrContext);
     const { HandleChangeOTP, HandleChangeState } = useContext(StateContext)
@@ -25,10 +23,18 @@ export const LoginProvider = ({ children }) => {
                 setError("Sai tài khoản hoặc mật khẩu!");
             } else {
                 console.log("✅ Đăng nhập thành công, yêu cầu OTP...");
+                setUser(serverUser.user);
                 console.log(user)
-                setUser(serverUser)
                 HandleChangeState();
                 HandleChangeOTP();
+                const checkOTP = await GetOTP(serverUser.user.email);
+                console.log(checkOTP);
+                if (checkOTP) {
+                    console.log("OTP đã được gửi về mail!");
+                } else {
+                    console.log("Email chưa được cung cấp!");
+                    return;
+                }
             }
         } catch (err) {
             console.error("❌ Lỗi khi xác thực đăng nhập:", err);

@@ -3,7 +3,8 @@ import style from '../Css/LoginForm.module.css'
 import style1 from '../Css/OTP.module.css'
 //Context
 import { ErrContext, LoginContext, StateContext } from "../Context/Login";
-import { Navigate } from "react-router-dom";
+import { VerifyOTP } from "../API/api";
+
 export const OTP = () => {
     const [otp, setOtp] = useState(new Array(6).fill(''));
     const { stateOTP, HandleChangeOTP } = useContext(StateContext);
@@ -23,20 +24,27 @@ export const OTP = () => {
             e.target.value = "";
         }
     };
-    const examOtp = "123456";
-    const CheckValue = () => {
-        if (otp.length === examOtp.length) {
-            const clone = otp.join('');
-            if (clone === examOtp) {
-                setError("")
+    const CheckValue = async () => {
+        const enteredOTP = otp.join('');
+        if (otp.join('').length !== 6 || isNaN(enteredOTP)) {
+            setError("Vui lòng nhập đủ 6 số OTP");
+            return;
+        }
+        try {
+            const result = await VerifyOTP(enteredOTP);
+            console.log(result)
+            if (result && result.message === "OTP verified") {
+                setError("");
                 console.log("✅ OTP hợp lệ, đăng nhập thành công!");
                 sessionStorage.setItem("user", JSON.stringify(user));
                 HandleChangeOTP();
+            } else {
+                setError("Sai mã số, vui lòng nhập lại");
+                console.log("False");
             }
-            else {
-                setError("Sai mã số, vui lòng nhập lại")
-                console.log("False")
-            }
+        } catch (err) {
+            setError("Lỗi xác thực OTP, vui lòng thử lại");
+            console.error("OTP verify error:", err);
         }
     }
     return (

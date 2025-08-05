@@ -24,12 +24,9 @@
     display: flex;
     justify-content: space-between;
 }
-.image{
-    width: 3vw;
-}
-.image{
-    width: 6vw;
-    object-fit: contain;
+.image {
+  width: 6vw;
+  object-fit: contain;
 }
 .button{
     width: 2vw;

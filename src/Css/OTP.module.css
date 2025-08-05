@@ -52,13 +52,12 @@
 }
 .wrapper .content .item{
     width: 15%;
-    height: auto;
-    min-height: 10vh;
+    height: 9vh;
     background-color: azure;
     border-radius: 10px;
     cursor: pointer;
     outline: none;
-    padding: 10px;
+    padding: 2%;
     font-size: 2rem;
     text-align: center;
     border: none;
@@ -74,7 +73,7 @@
 }
 .wrapper .button{
     width: 50%;
-    height: 4vh;
+    height: 6vh;
     border-radius: 20px;
     margin: 0 auto;
     outline: none;
@@ -82,7 +81,7 @@
     align-items: center;
     cursor: pointer;
     margin-top: 3vh;
-    font-size: 1.1rem; 
+    font-size: 1vw; 
     transition: all ease-in 0.2s;
     margin-bottom: 2vh;
 }
@@ -93,7 +92,8 @@
 @media screen and (max-width: 768px) {
     .wrapper {
         transition: all 0.3s ease-in-out;
-        font-size: 0.5rem;
+        font-size: 0.5rem !important;
+        width: 50vw !important;
     }
     .wrapper .title {
         font-size: 0.5rem;
@@ -104,9 +104,15 @@
     }
     .wrapper .button{
         height: 3vh;
-        font-size: 0.3rem;
+        width: 100% !important;
+        font-size: 1.5vw !important;
     }
     .wrapper .close {
         height: 2vh;
+    }
+    .wrapper .content .item{
+        width: 6vw !important;
+        height: 5vh !important;
+        font-size: 4vw !important;
     }
 }

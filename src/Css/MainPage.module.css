@@ -1,0 +1,24 @@
+.wrapper {
+    width: 100%;
+    min-height: 50vh;
+
+    display: flex;
+    padding: 1%;
+
+    justify-content: space-around;
+    gap: 1%;
+}
+.item1,
+.item2,
+.item3 {
+    background-color: rgb(255, 255, 255);
+    flex: 1 0 30%;
+
+    width: 20vw;
+    height: 15vh;
+    border: 1px solid red;
+    border-radius: 5px;
+    padding: 1%;
+
+    box-shadow: 3px 0 0 0px rgba(0,0,0, 0.25);
+}

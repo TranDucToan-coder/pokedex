@@ -35,14 +35,15 @@ const Cart = () => {
         }
         else{
             const OrderDate = new Date().toISOString().split("T")[0];
-            const sendReq = await InsertCart(user.ID, OrderDate, subTotal)
-            if(sendReq)
+            const cartID = await InsertCart(user.ID, OrderDate, subTotal)
+            if(cartID)
             {
                 window.alert("Success");
-                const sendReq2 = await InsertDetailCart(user.ID, OrderDate, subTotal);
+                const sendReq2 = await InsertDetailCart(cartID);
                 if(sendReq2){
                     console.log("Chi tiết đơn hàng đã được cập nhập")
                     localStorage.removeItem("cartTCG")
+                    window.location.reload()
                 }
             }
             else{

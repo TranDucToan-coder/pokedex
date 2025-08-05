@@ -9,16 +9,14 @@ const userImg = '/svgMenu/user-shield-alt-svgrepo-com.svg'
 const cart = '/svgMenu/Cart.svg'
 
 const SideBar = () => {
-    const { HandleClickBtn, HandleClickLogOut } = useContext(LoginContext);
     const user = JSON.parse(sessionStorage.getItem("user"))
-
-    const {state, HandleChangeState} = useContext(StateContext);
+    const { state, HandleChangeState } = useContext(StateContext);
     return (
         <div className={style.wrapper}>
             <div className={style.top}>
                 {user ? (
                     <div className={style.content}>
-                        <Link to="./profile">Profile</Link>
+                        <Link to="/profile">Profile</Link>
                     </div>
                 ) : (
                     <>
@@ -27,12 +25,20 @@ const SideBar = () => {
                     </>
                 )}
             </div>
-            <div className={style.bottom}>
-                <div className={style.content}>
-                    <Link to="./cart"><img src={cart} alt='cart'></img></Link>
-                    <p>Cart</p>
+            {user?.idRole === 3 ? (
+                <div className={style.bottom}>
+                    <div className={style.content}>
+                        <Link to="/admin">Admin</Link>
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <div className={style.bottom}>
+                    <div className={style.content}>
+                        <Link to="./cart"><img src={cart} alt='cart'></img></Link>
+                        <p>Cart</p>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

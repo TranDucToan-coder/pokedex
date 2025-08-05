@@ -1,13 +1,5 @@
 import axios from 'axios'
 
-const InstanceAxios = axios.create(
-    {
-        baseURL: "https://pokeapi.co",
-        timeout: 2000,
-        headers: { 'Authorization': 'Bearer ' }
-    }
-)
-
 export async function getData() {
     try {
         const response = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=1000");
@@ -72,7 +64,7 @@ export async function GetDetailTCG(id) {
         }
     } catch (error) {
         console.error("Lỗi khi lấy dữ liệu:", error);
-        return null;
+        return [];
     }
 }
 //User
@@ -89,11 +81,50 @@ export async function GetUser(username, password) {
         return null;
     }
 }
-export async function GetDetailUser(id) { 
+export async function GetDetailUser(id) {
     try {
         const response = await axios.get(`http://localhost:5000/login/${id}`)
         if (response) {
+            console.log(response.data)
             return response.data[0];
+        }
+    } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu:", error);
+        return null;
+    }
+}
+//OTP
+export async function GetOTP(email) {
+    try {
+        const response = await axios.post(`http://localhost:5000/login/sendOTP`, {email});
+        if(response){
+            return response.data.otp;
+        }
+    } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu:", error);
+        return null;
+    }
+}
+export async function VerifyOTP(otp) {
+    try {
+        console.log("Mã OTP: " + otp + typeof(otp))
+        const response = await axios.post(`http://localhost:5000/login/verifyOTP`, {otp});
+        console.log(response)
+        if(response){
+            return response.data;
+        }
+    } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu:", error);
+        return null;
+    }
+}
+//History
+export async function HistoryOrder(id) {
+    try {
+        const response = await axios.get(`http://localhost:5000/order/${id}`)
+        if (response) {
+            console.log(response.data)
+            return response.data;
         }
     } catch (error) {
         console.error("Lỗi khi lấy dữ liệu:", error);
@@ -104,8 +135,8 @@ export async function GetDetailUser(id) {
 export async function InsertCart(IdUser, OrderDate, total) {
     try {
         const response = await axios.post(`http://localhost:5000/cart/insert`, {
-            IdUser, 
-            OrderDate, 
+            IdUser,
+            OrderDate,
             total
         });
         if (response) {
@@ -117,16 +148,15 @@ export async function InsertCart(IdUser, OrderDate, total) {
         return null;
     }
 }
-export async function InsertDetailCart(IdUser, OrderDate, total) {
+export async function InsertDetailCart(cartID) {
     try {
         const cart = JSON.parse(localStorage.getItem('cartTCG'));
-        const cartID = await InsertCart(IdUser, OrderDate, total);
-        for(const item of cart){
+        for (const item of cart) {
             const response = await axios.post(`http://localhost:5000/cart/insertDetail`, {
-                ID : cartID, 
-                IdItem : item.id, 
-                Quantity : item.quantity, 
-                Price : item.cardmarket?.prices?.trendPrice
+                ID: cartID,
+                IdItem: item.id,
+                Quantity: item.quantity,
+                Price: item.cardmarket?.prices?.trendPrice
             })
             console.log("📦 Sending item:", item);
             if (!response) return null;

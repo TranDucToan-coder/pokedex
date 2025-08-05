@@ -6,6 +6,16 @@
     .information_wrapper{
         width: 100% !important;
     }
+        .history_table th, .history_table td {
+        font-size: 3vw;
+        padding: 1vh 2vw;
+    }
+
+    .btnContent .btnPassword, 
+    .btnContent .btnSave {
+        width: 40vw;
+        font-size: 3vw;
+    }
 }
 .input{
     display: flex;
@@ -20,4 +30,45 @@
     width: 20vw;
     height: 3vh;
     padding-left: 0.8vw;
+}
+.history_table{
+    margin-top: 1vh;
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+.history_table tr{
+    width: 100%;
+    height: auto;
+}
+.history_table tr:hover {
+    background-color: #f5f5f5;
+}
+.history_table td{
+    width: 20vw;
+    border: 1px solid rgba(0, 0, 0, 0.178);
+    padding: 1px;
+}
+.btnContent{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1%;
+}
+.btnContent .btnPassword, 
+.btnContent .btnSave{
+    width: 10vw;
+    height: 4vh;
+    border-radius: 2px;
+    border: none;
+    background-color: rgba(137, 43, 226, 0.726);
+    color: white;
+    cursor: pointer;
+}
+.btnContent .btnPassword, 
+.btnContent .btnSave {
+    transition: all 0.3s ease;
+}
+
+.btnContent .btnPassword:hover, 
+.btnContent .btnSave:hover {
+    background-color: rgba(137, 43, 226, 0.9);
 }
