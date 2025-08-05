@@ -13,9 +13,10 @@ const pool = mysql2.createPool({
 const CartController = {
     addCart : async(req, res) => {
         try {
-            const {IdUser, OrderDate, total} = req.body;
-            const queryInsertCart = `INSERT INTO cart(IdUser, OrderDate, total) VALUES(?,?,?)`;
-            const [results] = await pool.query(queryInsertCart, [IdUser, OrderDate, total]);
+            const {IdUser, OrderDate, total, idStatus, idMethod} = req.body;
+            const queryInsertCart = `INSERT INTO cart(IdUser, OrderDate, total, idStatus, idMethod) 
+            VALUES(?,?,?, ?, ?)`;
+            const [results] = await pool.query(queryInsertCart, [IdUser, OrderDate, total, idStatus, idMethod]);
             return res.status(200).json({
                 results,
                 ID : results.insertId,

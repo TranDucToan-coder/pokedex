@@ -52,7 +52,7 @@ const LoginController = {
             if (!isMatch) {
                 return res.status(401).json({ message: "Sai mật khẩu" });
             }
-            const token = jwt.sign(payload, process.env.SECRET_KEY || "your-secret-key", { expiresIn: '2h' })
+            const token = jwt.sign(payload, process.env.SECRET_KEY || "your-secret-key", { expiresIn: '6h' })
             return res.status(200).json({
                 message: 'Đăng nhập thành công',
                 token,
@@ -65,10 +65,8 @@ const LoginController = {
     },
     addUser: async (req, res) => {
         try {
-            const user = req.user;
             const { username, password, email, idRole } = req.body;
-            const query = "insert into User(username, password, email, idRole) values(?,?,?,?)";
-            if (user && user.role === 3) {
+            const query = "insert into user(username, password, email, idRole) values(?,?,?,?)";
                 const hashPass = await bcrypt.hash(password, 10);
                 const [result] = await pool.query(query, [username, hashPass, email, idRole]);
                 if (result) {
@@ -78,25 +76,27 @@ const LoginController = {
                 } else {
                     return res.status(401).json("Database err");
                 }
-            } else {
-                return res.status(400).json({ message: "Không đủ quyền hạn truy cập" });
-            }
         } catch (error) {
             return res.status(500).json(`Server err: ${error}`)
         }
     },
     updateUser: async (req, res) => {
         try {
-            const { id } = req.params;
-            const { fullname, addrerss, phone } = req.body;
-            const query = "UPDATE userprofile SET fullname = ? , addrerss = ?, phone = ? WHERE ID = ?";
-            const [result] = await pool.query(query, [fullname, addrerss, phone, id]);
-            console.log(id, fullname, addrerss, phone)
+            const user = req.user;
+            if(user){
+                const { id } = req.params;
+                const { fullname, addrerss, phone } = req.body;
+                const query = "UPDATE userprofile SET fullname = ? , addrerss = ?, phone = ? WHERE ID = ?";
+                const [result] = await pool.query(query, [fullname, addrerss, phone, id]);
             if (result) {
                 res.status(200).json(result);
             }
             else {
-                res.status(401).json("Database err")
+                res.status(402).json("Bad request")
+            }
+            }
+            else{
+                res.status(400).json({message : "Không đủ quyền truy cập"})
             }
         } catch (error) {
             res.status(500).json(`Server err: ${error}`)
@@ -107,12 +107,15 @@ const LoginController = {
             const { id } = req.params;
             const { password } = req.body;
             const query = `UPDATE user SET password = ? WHERE ID = ?`;
-            const [result] = pool.query(query, [password, id]);
-            if (result) {
-                res.status(200).json({ message: "Update thành công password", result });
-            }
-            else {
-                res.status(401).json("Database err")
+            const bcryptPassword = await bcrypt.hash(password, 10);
+            if(id){
+                const [result] = await pool.query(query, [bcryptPassword, id]);
+                if (result) {
+                    res.status(200).json({ message: "Update thành công password", result });
+                }
+                else {
+                    res.status(401).json("Database err")
+                }
             }
         } catch (error) {
             res.status(500).json(`Server err: ${error}`)

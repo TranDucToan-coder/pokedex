@@ -27,6 +27,18 @@ const OrderController = {
         }
         else
             return res.status(401).json("Database already has errored")
+    },
+    DetailOrderbyUser : async(req, res) => {
+        try {
+            const { id } = req.params;
+        const query = `SELECT * FROM cart WHERE IdUser = ?`;
+        const [rows] = pool.query(query, [id]);
+        if( rows){
+             return res.status(200).json(rows);
+        }
+        } catch (error) {
+            return res.status(401).json("Database already has errored")
+        }
     }
 }
 module.exports = OrderController
