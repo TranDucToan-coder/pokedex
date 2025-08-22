@@ -13,7 +13,11 @@ const pool = mysql2.createPool({
     connectionLimit: 2,
     queueLimit: 2
 });
-
+const testPass = async() => {
+    const pass = await bcrypt.hash("123", 10)
+    console.log(pass)
+}
+testPass()
 const LoginController = {
     viewUser: async (req, res) => {
         try {

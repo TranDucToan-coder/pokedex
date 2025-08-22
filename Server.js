@@ -10,6 +10,7 @@ const LoginRoutes = require('./Routes/LoginRoutes')
 const CartRoutes = require('./Routes/CartRoutes')
 const OrderRoutes = require('./Routes/OrderRoutes');
 const AdminRoutes = require('./Routes/AdminRoutes')
+const PaymentRoutes = require('./Routes/PaymentRoutes')
 
 const app = express();
 app.use(cor());
@@ -56,6 +57,7 @@ app.use("/login", LoginRoutes);
 app.use("/cart", CartRoutes);
 app.use("/order", OrderRoutes);
 app.use("/admin", AdminRoutes);
+app.use("/payment", PaymentRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
