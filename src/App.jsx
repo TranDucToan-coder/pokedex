@@ -16,6 +16,7 @@ import {LoginForm, OTP } from './pages/Login';
 import DetailTCG from './pages/TCG/Detail/DetailTCG';
 import Cart from './pages/Cart/Cart';
 import Information from './Profile/PersonalInformation';
+import Payment from './pages/Cart/Payment';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
                 <Route path='/TCG' element={<TCG></TCG>}></Route>
                 <Route path='/TCG/:id' element={<DetailTCG></DetailTCG>}></Route>
                 <Route path='/cart' element={<Cart></Cart>}></Route>
+                <Route path='/cart/payment' element={<Payment></Payment>}></Route>
                 <Route element={<Middleware/>}>
                   <Route path='/profile/*' element={<User/>}></Route>
                   <Route path='/profile/information' element={<Information/>}></Route>

@@ -1,0 +1,28 @@
+@media only screen and (max-width: 768px)  {
+    .wrapper{
+        width: 100% !important;
+    }
+    .image{
+        width: 100% !important;
+    }
+}
+.wrapper{
+    width: 80%;
+    height: auto;
+    background-color: white;
+    display: flex;
+    margin: 0 auto;
+}
+.content{
+    width: 100%;
+}
+.cartContent{
+    width: 80%;
+    margin: 2vw auto;
+}
+.cartContent td {
+    text-align: center;
+}
+.image{
+    width: 20%;
+}

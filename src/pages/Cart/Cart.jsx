@@ -1,12 +1,11 @@
 import { useState, useEffect, useMemo, useContext } from "react";
-import { LoginContext } from "../../Context/Login";
+import { useNavigate } from "react-router-dom"
 import style from "../../Css/Cart.module.css"
 import ChangeQuantity from "./ChangeQuantity";
-import { InsertCart, InsertDetailCart } from "../../API/api";
-import { Await } from "react-router-dom";
 
 const Cart = () => {
     const [cartItem, setCart] = useState([]);
+    const navigate = useNavigate();
     useEffect(() => {
         try {
             const storedCart = localStorage.getItem("cartTCG");
@@ -28,27 +27,29 @@ const Cart = () => {
             return total + price * item.quantity;
         }, 0).toFixed(2);
     }, [cartItem]);
+    localStorage.setItem("subTotal", subTotal);
     const submit = async() => {
         const user = JSON.parse(sessionStorage.getItem("user"));
         if(!user){
             window.alert("Vui lòng đăng nhập để thanh toán!")
         }
         else{
-            const OrderDate = new Date().toISOString().split("T")[0];
-            const cartID = await InsertCart(user.ID, OrderDate, subTotal)
-            if(cartID)
-            {
-                window.alert("Success");
-                const sendReq2 = await InsertDetailCart(cartID);
-                if(sendReq2){
-                    console.log("Chi tiết đơn hàng đã được cập nhập")
-                    localStorage.removeItem("cartTCG")
-                    window.location.reload()
-                }
-            }
-            else{
-                window.alert("Failed~")
-            }
+            //const OrderDate = new Date().toISOString().split("T")[0];
+            //const cartID = await InsertCart(user.ID, OrderDate, subTotal)
+            //if(cartID)
+            //{
+            //    window.alert("Success");
+            //    const sendReq2 = await InsertDetailCart(cartID);
+            //    if(sendReq2){
+            //        console.log("Chi tiết đơn hàng đã được cập nhập")
+            //        localStorage.removeItem("cartTCG")
+            //        window.location.reload()
+            //    }
+            //}
+            //else{
+            //    window.alert("Failed~")
+            //}
+            navigate("/cart/payment")
         }
     }
     return (
